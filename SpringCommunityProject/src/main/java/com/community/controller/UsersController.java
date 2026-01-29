@@ -106,9 +106,16 @@ public class UsersController {
 	}
 	
 	@PostMapping("/updatePw")
-	public String updatePw(@RequestBody String entity) {
-		
-		return entity;
+	public String updatePw(Users users, Model model) {
+		log.info(users.toString());
+		try {
+			usersService.updatePw(users);
+		} catch (Exception e) {
+			model.addAttribute("message","다시 입력해 주세요.");
+			return "community/failed";
+		}
+		model.addAttribute("message","회원님의 비밀번호가 재설정 되었습니다.");
+		return "community/success";
 	}
 	
 	

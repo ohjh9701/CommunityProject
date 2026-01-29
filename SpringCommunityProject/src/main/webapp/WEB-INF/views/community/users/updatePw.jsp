@@ -71,8 +71,8 @@
     <p class="instruction">새로운 비밀번호를 설정해 주세요.<br>강력한 비밀번호일수록 안전합니다.</p>
 
     <form action="/community/updatePw" method="post" onsubmit="return validatePassword()">
-        <input type="hidden" name="id" value="${user.id}">
-
+        <input type="hidden" name="id" value="${users.id}">
+        
         <div class="mb-3">
             <label for="password" class="form-label font-weight-bold">새 비밀번호</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="8자 이상 입력" required>

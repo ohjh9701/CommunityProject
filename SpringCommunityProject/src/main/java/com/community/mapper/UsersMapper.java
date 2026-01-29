@@ -14,5 +14,6 @@ public interface UsersMapper {
 	public void update(Users users) throws Exception;
 	public void delete(Integer no) throws Exception;
 	public List<Users> list() throws Exception;
+	public void updatePw(Users users) throws Exception;
 	
 }

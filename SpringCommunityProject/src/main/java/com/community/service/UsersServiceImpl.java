@@ -53,6 +53,11 @@ public class UsersServiceImpl implements UsersService {
 	public Users findPw(Users users) throws Exception {
 		return mapper.findPw(users);
 	}
+
+	@Override
+	public void updatePw(Users users) throws Exception {
+		mapper.updatePw(users);
+	}
 	
 	
 	

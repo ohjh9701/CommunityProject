@@ -26,6 +26,10 @@
 		UPDATE users SET password = #{password}, nickName =	#{nickName}, email = #{email} WHERE no = #{no}
 	</update>
 	
+	<update id="updatePw">
+		UPDATE users SET password = #{password} WHERE id = #{id}
+	</update>
+	
 	<delete id="delete">
 		DELETE FROM users WHERE no = #{no}
 	</delete>
