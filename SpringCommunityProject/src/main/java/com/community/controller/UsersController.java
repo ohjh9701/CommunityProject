@@ -1,16 +1,117 @@
 package com.community.controller;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.community.domain.Users;
+import com.community.service.UsersService;
+
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+
 
 @Slf4j
 @Controller
 @RequestMapping("/community")
 @MapperScan(basePackages = "com.community.mapper")
 public class UsersController {
+	
+	@Autowired
+	private UsersService usersService;
+	
+	@GetMapping("/loginForm")
+	public String UserLoginForm() {
+		return "community/users/loginForm";
+	}
+	
+	@PostMapping("/login")
+	public String login(Users users, Model model) {
+		Users user;
+		try {
+			user = usersService.loginRead(users);
+			if(user != null) {
+				model.addAttribute("message","%s님 환영합니다.".formatted(user.getNickName()));
+				return "community/success";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("message","ID, PW를 확인해 주세요.");
+		return "community/failed";
+	}
+	
+	@GetMapping("/joinForm")
+	public String joinForm() {
+		return "community/users/joinForm";
+	}
+	
+	@PostMapping("/join")
+	public String postMethodName(Model model, Users users) {
+		try {
+			usersService.create(users);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("message","입력하신 정보를 다시 확인해 주세요.");
+			return "community/failed";
+		}
+		model.addAttribute("message","%s님 가입을 환영합니다.".formatted(users.getNickName()));
+		return "community/success";
+	}
+	
+	@GetMapping("/findIdForm")
+	public String findIdForm() {
+		return "community/users/findId";
+	}
+	
+	@PostMapping("/findId")
+	public String findId(Users users, Model model) {
+		
+		Users user;
+		try {
+			user = usersService.findId(users);
+			model.addAttribute("message","회원님의 ID는 [ %s ] 입니다.".formatted(user.getId()));
+			return "community/success";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("message","입력하신 메일주소로 가입된 계정이 없습니다.");
+		return "community/failed";
+	}
+	
+	
+	@GetMapping("/findPwForm")
+	public String findPwForm() {
+		return "community/users/findPw";
+	}
+	
+	@PostMapping("/findPw")
+	public String findPw(Users users, Model model) {
+		Users user;
+		try {
+			user = usersService.findPw(users);
+			return "community/users/updatePw";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("message","입력하신 정보로 가입된 계정이 없습니다.");
+		return "community/failed";
+	}
+	
+	@PostMapping("/updatePw")
+	public String updatePw(@RequestBody String entity) {
+		
+		return entity;
+	}
+	
+	
 	
 	
 	

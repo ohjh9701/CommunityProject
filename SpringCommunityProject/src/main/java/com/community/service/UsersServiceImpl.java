@@ -38,6 +38,21 @@ public class UsersServiceImpl implements UsersService {
 	public List<Users> list() throws Exception {
 		return mapper.list();
 	}
+
+	@Override
+	public Users loginRead(Users users) throws Exception {
+		return mapper.loginRead(users);
+	}
+
+	@Override
+	public Users findId(Users users) throws Exception {
+		return mapper.findId(users);
+	}
+
+	@Override
+	public Users findPw(Users users) throws Exception {
+		return mapper.findPw(users);
+	}
 	
 	
 	
