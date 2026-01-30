@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.community.domain.Users;
 import com.community.service.UsersService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
 
 
 @Slf4j
@@ -33,10 +32,11 @@ public class UsersController {
 	}
 	
 	@PostMapping("/login")
-	public String login(Users users, Model model) {
+	public String login(Users users, Model model, HttpSession session) {
 		Users user;
 		try {
 			user = usersService.loginRead(users);
+			session.setAttribute("loginUser", user);
 			if(user != null) {
 				model.addAttribute("message","%s님 환영합니다.".formatted(user.getNickName()));
 				return "community/success";
@@ -47,6 +47,15 @@ public class UsersController {
 		model.addAttribute("message","ID, PW를 확인해 주세요.");
 		return "community/failed";
 	}
+	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:/community/main";
+	}
+	
 	
 	@GetMapping("/joinForm")
 	public String joinForm() {
@@ -118,7 +127,19 @@ public class UsersController {
 		return "community/success";
 	}
 	
+	@GetMapping("/main")
+	public String main(HttpSession session) {
+		session.getAttribute("loginUser");
+		return "community/main";
+	}
 	
+	@GetMapping("/mypage")
+	public String mypage(HttpSession session) {
+		
+		session.getAttribute("loginUser");
+		
+		return "community/users/mypage";
+	}
 	
 	
 	
