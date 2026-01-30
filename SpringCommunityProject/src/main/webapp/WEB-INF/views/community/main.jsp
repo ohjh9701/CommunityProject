@@ -35,7 +35,7 @@
 
         /* 섹션 2: 게시판 리스트 영역 */
         .board-section { padding: 60px 0; min-height: 400px; }
-        .section-title { font-family: 'Oswald', sans-serif; border-left: 5px solid #EF0107; padding-left: 15px; margin-bottom: 30px; color: #063672; }
+        .section-title { font-family: 'Oswald', sans-serif; border-left: 5px solid #EF0107; padding-left: 15px; margin-bottom: 30px; color: #EF0107; }
         .table { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .table thead { background-color: #063672; color: white; }
 
@@ -74,8 +74,8 @@
 
 <section class="main-banner">
     <div class="banner-text">
-        <h1>VICTORIA CONCORDIA CRESCIT</h1>
-        <p>Victory Through Harmony - Official Fan Community</p>
+        <h1>We Are Winner!</h1>
+        <p>ARSENAL - Official Fan Community</p>
     </div>
 </section>
 
