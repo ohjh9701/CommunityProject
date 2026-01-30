@@ -109,14 +109,10 @@
                     <span class="info-label">Email</span>
                     <span class="info-value">${loginUser.email}</span>
                 </div>
-                <div class="info-row" style="border-bottom: none;">
-                    <span class="info-label">Joined Date</span>
-                    <span class="info-value">${loginUser.regDate}</span>
-                </div>
 
                 <div class="btn-group-custom">
                     <a href="/community/updateUserForm" class="btn btn-edit rounded">정보 수정</a>
-                    <a href="/community/logout" class="btn btn-logout rounded">로그아웃</a>
+                    <a href="/community/deleteUser" class="btn btn-logout rounded">회원 탈퇴</a>
                 </div>
             </div>
         </div>

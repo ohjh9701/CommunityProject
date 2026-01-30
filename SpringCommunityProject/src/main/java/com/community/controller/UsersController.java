@@ -136,11 +136,31 @@ public class UsersController {
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session) {
 		
-		session.getAttribute("loginUser");
-		
+		if(session.getAttribute("loginUser") == null) {
+			return "community/users/loginForm";
+		}
 		return "community/users/mypage";
 	}
 	
+	@GetMapping("/updateUserForm")
+	public String updateUserForm(HttpSession session) {
+		session.getAttribute("loginUser");
+		return "community/users/updateForm";
+	}
+	
+	@PostMapping("/updateUser")
+	public String updateUser(HttpSession session, Users users, Model model) {
+		log.info(users.toString());
+		try {
+			usersService.update(users);
+			session.setAttribute("loginUser", users);
+		} catch (Exception e) {
+			model.addAttribute("message","다시 입력해 주세요.");
+			return "community/failed";
+		}
+		model.addAttribute("message","회원님의 정보가 변경 되었습니다.");
+		return "community/success";
+	}
 	
 	
 }
