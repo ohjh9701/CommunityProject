@@ -22,7 +22,7 @@
         </div>
         <p class="text-muted">아이디 또는 비밀번호가 올바르지 않습니다.</p>
         <br>
-        <a href="/community/loginForm" class="btn-retry">다시 로그인하기</a>
+        <a href="/community/main" class="btn-retry">돌아가기</a>
     </div>
 </body>
 </html>
