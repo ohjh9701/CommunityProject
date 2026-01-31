@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.community.domain.Board;
 import com.community.domain.Paging;
+import com.community.domain.Reply;
 import com.community.domain.Users;
 import com.community.service.BoardService;
+import com.community.service.ReplyService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private ReplyService replyService;
 
 	@GetMapping("/board/list")
 	public String boardList(@RequestParam(value = "page", defaultValue = "1") int page, Model model, HttpSession session) {
@@ -79,6 +84,8 @@ public class BoardController {
 		try {
 			Board board = boardService.read(b);
 			model.addAttribute("board",board);
+			List<Reply> replyList = replyService.list(board);
+			model.addAttribute("replyList",replyList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

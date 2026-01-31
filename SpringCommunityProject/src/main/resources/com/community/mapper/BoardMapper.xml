@@ -11,6 +11,7 @@
 		<result property="goodPoint" column="goodPoint" />
 		<result property="badPoint" column="badPoint" />
 		<result property="regDate" column="reg_date" />
+		<result property="replyCount" column="replyCount" />
 		<association property="user" javaType="users">
 			<result property="id" column="id" />
 			<result property="nickName" column="nickName" />
@@ -46,7 +47,7 @@
 
 	<select id="getListWithPaging" resultMap="boardMap"> SELECT u.nickName,
 		u.id, b.no, b.title,
-		b.content, b.goodPoint, b.badPoint, b.reg_date
+		b.content, b.goodPoint, b.badPoint, b.reg_date, (SELECT COUNT(*) FROM Reply r WHERE r.board_no = b.no) as replyCount
 		FROM Users u INNER JOIN Board b ON u.id = b.users_id
 		ORDER BY b.no DESC
 		OFFSET #{offset} ROWS FETCH NEXT 10 ROWS ONLY
@@ -54,7 +55,7 @@
 	
 	<select id="getAdminListWithPaging" resultMap="boardMap"> SELECT u.nickName,
 		u.id, b.no, b.title,
-		b.content, b.goodPoint, b.badPoint, b.reg_date
+		b.content, b.goodPoint, b.badPoint, b.reg_date, (SELECT COUNT(*) FROM Reply r WHERE r.board_no = b.no) as replyCount
 		FROM Users u INNER JOIN Board b ON u.id = b.users_id
 		WHERE b.users_id = 'admin'
 		ORDER BY b.no DESC
@@ -67,7 +68,7 @@
 
 	<select id="getMyListWithPaging" resultMap="boardMap">
 		SELECT u.nickName, u.id, b.no, b.title,
-		b.content, b.goodPoint, b.badPoint, b.reg_date
+		b.content, b.goodPoint, b.badPoint, b.reg_date, (SELECT COUNT(*) FROM Reply r WHERE r.board_no = b.no) as replyCount
 		FROM Users u INNER JOIN Board b ON u.id = b.users_id
 		WHERE b.users_id = #{board.user.id, jdbcType=VARCHAR}
 		ORDER BY b.no DESC
@@ -142,6 +143,8 @@
 			</if>
 		</where>
 	</select>
-
+	
+	
+	
 
 </mapper>

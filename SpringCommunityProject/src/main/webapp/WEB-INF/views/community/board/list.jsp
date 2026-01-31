@@ -120,6 +120,20 @@ body {
 	background-color: #DB0007;
 	color: white;
 }
+/* 댓글 개수 스타일 */
+.reply-count {
+    font-size: 0.85rem;      /* 제목보다 살짝 작게 */
+    color: #adb5bd;          /* 연한 회색 (Bootstrap의 text-muted와 유사) */
+    font-weight: normal;     /* 제목이 bold라도 댓글 수는 가볍게 */
+    margin-left: 5px;        /* 제목과 적당한 거리 유지 */
+    vertical-align: middle;  /* 텍스트 높이 맞춤 */
+}
+
+/* 마우스를 올렸을 때(Hover)의 변화 */
+a:hover .reply-count {
+    color: #EF0107;          /* 제목에 마우스 올리면 댓글 수도 아스날 레드로! */
+    transition: color 0.3s;
+}
 
 footer {
 	background-color: #111;
@@ -209,7 +223,7 @@ footer {
 								<td class="text-start"><a
 									href="/community/board/detail?no=${adminBoard.no}"
 									class="text-decoration-none text-dark fw-bold"> [공지] <c:out
-											value="${adminBoard.title}" />
+											value="${adminBoard.title}" /><span class="reply-count">[${adminBoard.replyCount}]</span>
 								</a></td>
 								<td>${adminBoard.user.nickName}</td>
 								<td><fmt:formatDate value="${adminBoard.regDate}"
@@ -222,7 +236,7 @@ footer {
 								<td>${board.no}</td>
 								<td class="title-cell"><a
 									href="/community/board/detail?no=${board.no}"
-									class="text-decoration-none text-dark fw-bold">${board.title}</a>
+									class="text-decoration-none text-dark fw-bold">${board.title}<span class="reply-count">[${board.replyCount}]</span></a>
 								</td>
 								<td>${board.user.nickName}</td>
 								<td><fmt:formatDate value="${board.regDate}"
