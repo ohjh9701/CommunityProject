@@ -10,7 +10,7 @@ import com.community.mapper.BoardMapper;
 
 @Service
 public class BoardServiceImpl implements BoardService {
-	
+
 	@Autowired
 	private BoardMapper mapper;
 
@@ -26,14 +26,12 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void update(Board board) throws Exception {
-		// TODO Auto-generated method stub
-
+		mapper.update(board);
 	}
 
 	@Override
 	public void delete(Board board) throws Exception {
-		// TODO Auto-generated method stub
-
+		mapper.delete(board);
 	}
 
 	@Override
@@ -48,16 +46,30 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-    public List<Board> getListWithPaging(int page) throws Exception {
-        // 페이지 번호를 오프셋(시작 위치)으로 변환
-        // 1페이지 -> 0부터 시작, 2페이지 -> 10부터 시작...
-        int offset = (page - 1) * 10;
-        return mapper.getListWithPaging(offset);
-    }
+	public List<Board> getListWithPaging(int page) throws Exception {
+		int offset = (page - 1) * 10;
+		return mapper.getListWithPaging(offset);
+	}
 
-    @Override
-    public int getTotalCount() throws Exception {
-        return mapper.getTotalCount();
-    }
+	@Override
+	public int getTotalCount() throws Exception {
+		return mapper.getTotalCount();
+	}
+
+	@Override
+	public List<Board> getMyListWithPaging(int page, Board board) throws Exception {
+		int offset = (page - 1) * 10;
+		return mapper.getMyListWithPaging(offset, board);
+	}
+
+	@Override
+	public int getMyTotalCount() throws Exception {
+		return mapper.getMyTotalCount();
+	}
+
+	@Override
+	public Board userRead(Board board) throws Exception {
+		return mapper.userRead(board);
+	}
 
 }

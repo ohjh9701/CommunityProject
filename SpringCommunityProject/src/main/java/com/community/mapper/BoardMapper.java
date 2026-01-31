@@ -2,6 +2,8 @@ package com.community.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.community.domain.Board;
 
 public interface BoardMapper {
@@ -23,5 +25,9 @@ public interface BoardMapper {
 
 	// 전체 게시글 개수 가져오기 (페이징 계산기용)
 	public int getTotalCount() throws Exception;
+	
+	public List<Board> getMyListWithPaging(@Param("offset") int page, Board board) throws Exception;
+	public int getMyTotalCount() throws Exception;
+	public Board userRead(Board board) throws Exception;
 
 }

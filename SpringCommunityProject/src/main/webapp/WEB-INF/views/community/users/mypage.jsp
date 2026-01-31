@@ -120,7 +120,7 @@
                 </div>
 
                 <div class="btn-group-custom">
-                    <a href="/community/board/myList" class="btn btn-edit rounded">게시글</a>
+                    <a href="/community/board/myList?no=${loginUser.no}" class="btn btn-edit rounded">게시글</a>
                     <a href="/community/updateUserForm" class="btn btn-edit rounded">정보 수정</a>
                     <a href="/community/deleteUser" class="btn btn-logout rounded">회원 탈퇴</a>
                 </div>

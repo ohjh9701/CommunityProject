@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.community.domain.Board;
 import com.community.domain.Paging;
+import com.community.domain.Users;
 import com.community.service.BoardService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j
@@ -68,15 +71,76 @@ public class BoardController {
 	
 	@GetMapping("/board/detail")
 	public String boardDetail(Board b, HttpSession session, Model model) {
+		session.getAttribute("loginUSer");
 		try {
 			Board board = boardService.read(b);
-			log.info(board.toString());
 			model.addAttribute("board",board);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		return "community/board/detail";
+	}
+	
+	@GetMapping("/board/updateForm")
+	public String boardUpdateForm(Board b, HttpSession session, Model model) {
+		session.getAttribute("loginUSer");
+		Board board;
+		try {
+			board = boardService.read(b);
+			model.addAttribute("board",board);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "community/board/updateForm";
+	}
+	
+	@PostMapping("/board/update")
+	public String postMethodName(Board b, HttpSession session, Model model) {
+		try {
+			boardService.update(b);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("message","입력하신 정보를 다시 확인해 주세요.");
+			return "community/failed";
+		}
+		model.addAttribute("message","%d번의 게시글 수정이 완료되었습니다.".formatted(b.getNo()));
+		return "community/success";
+	}
+	
+	@GetMapping("/board/delete")
+	public String boardDelete(Board b, HttpSession session, Model model) {
+		session.getAttribute("loginUser");
+		try {
+			boardService.delete(b);
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("message","해당 게시글을 삭제하지 못했습니다.");
+			return "community/failed";
+		}
+		model.addAttribute("message","%d번의 게시글 삭제가 완료되었습니다.".formatted(b.getNo()));
+		return "community/success";
+	}
+	
+	@GetMapping("/board/myList")
+	public String boardMyList(@RequestParam(value = "page", defaultValue = "1") int page, Model model, HttpSession session) {
+		Users loginUser = (Users) session.getAttribute("loginUser");
+	    
+	    Board board = new Board();
+	    board.setUser(loginUser);
+		// 1. 실제 DB에서 10개만 가져오기
+		List<Board> list;
+		int total;
+		try {
+			list = boardService.getMyListWithPaging(page, board);
+			total = boardService.getMyTotalCount();
+			Paging paging = new Paging(total, page);
+			model.addAttribute("boardList", list);
+			model.addAttribute("paging", paging);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "community/board/list";
 	}
 	
 	

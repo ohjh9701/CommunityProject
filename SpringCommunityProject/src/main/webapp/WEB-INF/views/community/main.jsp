@@ -86,10 +86,10 @@
         <thead>
             <tr>
                 <th style="width: 10%">No</th>
-                <th style="width: 50%">Title</th>
-                <th style="width: 15%">Writer</th>
-                <th style="width: 15%">Date</th>
-                <th style="width: 10%">Points</th> <%-- 추천수 추가 --%>
+                <th style="width: 50%">제목</th>
+                <th style="width: 15%">작성자</th>
+                <th style="width: 15%">작성일</th>
+                <th style="width: 10%">좋아요</th> <%-- 추천수 추가 --%>
             </tr>
         </thead>
         <tbody>

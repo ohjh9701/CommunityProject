@@ -5,7 +5,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Arsenal Community | Board List</title>
+    <title>Arsenal Community | My List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
     <style>
@@ -83,7 +83,6 @@
                 <select name="searchType" class="form-select fw-bold" style="width: 130px;">
                     <option value="T" ${board.searchType == 'T' ? 'selected' : ''}>제목</option>
                     <option value="C" ${board.searchType == 'C' ? 'selected' : ''}>내용</option>
-                    <option value="W" ${board.searchType == 'W' ? 'selected' : ''}>작성자</option>
                 </select>
                 <div style="width: 2px; height: 25px; background: #eee; margin: 0 10px;"></div>
                 <input type="text" name="keyword" class="form-control" placeholder="구너들의 소식을 검색하세요..." value="${board.keyword}">
@@ -93,7 +92,7 @@
 
         <div class="board-container">
             <div class="d-flex justify-content-between align-items-end mb-3">
-                <h3 class="fw-bold m-0" style="color:var(--ars-blue); border-left: 5px solid var(--ars-red); padding-left:15px;">GUNNERS BOARD</h3>
+                <h3 class="fw-bold m-0" style="color:var(--ars-blue); border-left: 5px solid var(--ars-red); padding-left:15px;">${board.user.nickName}님의 작성 게시글</h3>
                 <c:if test="${not empty loginUser}">
                     <a href="/community/board/insertForm" class="btn btn-arsenal px-4">새 글 작성</a>
                 </c:if>

@@ -36,7 +36,7 @@
             setTimeout(function() {
                 // 2초(2000ms) 뒤에 지정된 URL로 이동
                 location.href = "/community/main";
-            }, 500); 
+            }, 1000); 
         };
     </script>
 </body>
