@@ -63,7 +63,8 @@
         .btn-group-custom { display: flex; gap: 10px; margin-top: 30px; }
         .btn-edit { background-color: #EF0107; color: white; border: none; padding: 12px; font-weight: bold; flex: 1; }
         .btn-logout { background-color: #063672; color: white; border: none; padding: 12px; font-weight: bold; flex: 1; text-decoration: none; text-align: center; }
-        .btn-edit:hover, .btn-logout:hover { color: white; opacity: 0.9; }
+        .btn-edit:hover { background-color: #DB0007; color: #ffffff; opacity: 0.9; }
+        .btn-logout:hover { background-color: rgb(3, 27, 54); color: #ffffff; opacity: 0.9; }
 
         /* 푸터 스타일 */
         footer { background-color: #111; color: #aaa; padding: 40px 0; font-size: 0.9rem; margin-top: auto; }
@@ -111,6 +112,7 @@
                 </div>
 
                 <div class="btn-group-custom">
+                    <a href="/community/board/myList" class="btn btn-edit rounded">게시글</a>
                     <a href="/community/updateUserForm" class="btn btn-edit rounded">정보 수정</a>
                     <a href="/community/deleteUser" class="btn btn-logout rounded">회원 탈퇴</a>
                 </div>

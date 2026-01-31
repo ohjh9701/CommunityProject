@@ -27,7 +27,7 @@
         <br>
         <a href="/community/main" class="btn-go">메인 페이지로 이동</a>
         
-        <p class="redirect-notice">2초 후 메인 페이지로 자동으로 이동합니다...</p>
+        <p class="redirect-notice">잠시 후 메인 페이지로 자동으로 이동합니다...</p>
     </div>
 
     <script>
@@ -36,7 +36,7 @@
             setTimeout(function() {
                 // 2초(2000ms) 뒤에 지정된 URL로 이동
                 location.href = "/community/main";
-            }, 2000); 
+            }, 500); 
         };
     </script>
 </body>
