@@ -2,6 +2,7 @@ package com.community.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,9 +41,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<Board> search(Board board) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Board> search(@Param("offset") int page, Board board) throws Exception {
+		int offset = (page - 1) * 10;
+		return mapper.search(offset, board);
 	}
 
 	@Override
@@ -70,6 +71,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board userRead(Board board) throws Exception {
 		return mapper.userRead(board);
+	}
+
+	@Override
+	public int getSearchTotalCount(Board board) throws Exception {
+		return mapper.getSearchTotalCount(board);
 	}
 
 }

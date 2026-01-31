@@ -144,5 +144,24 @@ public class BoardController {
 		return "community/board/list";
 	}
 	
+	@GetMapping("/board/search")
+	public String boardSearch(@RequestParam(value = "page", defaultValue = "1") int page, Board board, HttpSession session, Model model) {
+		session.getAttribute("loginUser");
+		log.info("%s".formatted(board.getKeyword()));
+		int total;
+		try {
+			List<Board> boardList = boardService.search(page, board);
+			total = boardService.getSearchTotalCount(board);
+			Paging paging = new Paging(total, page);
+			model.addAttribute("boardList", boardList);
+			model.addAttribute("paging", paging);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "community/board/list";
+	}
+	
+	
 
 }

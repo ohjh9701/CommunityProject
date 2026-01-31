@@ -79,11 +79,11 @@
     <div class="container">
         
         <div class="top-search-area">
-            <form action="/community/board/list" method="get" class="d-flex align-items-center px-3">
+            <form action="/community/board/search" method="get" class="d-flex align-items-center px-3">
                 <select name="searchType" class="form-select fw-bold" style="width: 130px;">
-                    <option value="T" ${board.searchType == 'T' ? 'selected' : ''}>제목</option>
-                    <option value="C" ${board.searchType == 'C' ? 'selected' : ''}>내용</option>
-                    <option value="W" ${board.searchType == 'W' ? 'selected' : ''}>작성자</option>
+                    <option value="title" ${board.searchType == 'title' ? 'selected' : ''}>제목</option>
+                    <option value="content" ${board.searchType == 'content' ? 'selected' : ''}>내용</option>
+                    <option value="nickName" ${board.searchType == 'nickName' ? 'selected' : ''}>작성자</option>
                 </select>
                 <div style="width: 2px; height: 25px; background: #eee; margin: 0 10px;"></div>
                 <input type="text" name="keyword" class="form-control" placeholder="구너들의 소식을 검색하세요..." value="${board.keyword}">

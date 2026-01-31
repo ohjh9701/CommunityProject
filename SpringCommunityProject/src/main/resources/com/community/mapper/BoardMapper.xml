@@ -83,7 +83,56 @@
 	<select id="delete">
 		DELETE FROM BOARD WHERE no = #{no}
 	</select>
+	
+	<select id="search" resultMap="boardMap">
+		SELECT u.nickName, u.id, b.no, b.title,
+		b.content, b.goodPoint, b.badPoint, b.reg_date
+		FROM Users u INNER JOIN Board b ON u.id = b.users_id
+		<where>
+			<if test="board.keyword != null and board.keyword != ''">
+				<choose>
+					<when test="board.searchType == 'title'">
+						AND title LIKE '%' || #{board.keyword} || '%'
+					</when>
+					<when test="board.searchType == 'content'">
+						AND content LIKE '%' || #{board.keyword} || '%'
+					</when>
+					<when test="board.searchType == 'nickName'">
+						AND u.nickName LIKE '%' || #{board.keyword} || '%'
+					</when>
+					<otherwise>
+						AND (title LIKE '%' || #{board.keyword} || '%'
+						OR content LIKE '%' || #{board.keyword} || '%')
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		ORDER BY b.no DESC
+		OFFSET #{offset} ROWS FETCH NEXT 10 ROWS ONLY
+	</select>
 
+	<select id="getSearchTotalCount" resultType="int">
+		SELECT COUNT(b.no) FROM Users u INNER JOIN Board b ON u.id = b.users_id
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<choose>
+					<when test="searchType == 'title'">
+						AND title LIKE '%' || #{keyword} || '%'
+					</when>
+					<when test="searchType == 'content'">
+						AND content LIKE '%' || #{keyword} || '%'
+					</when>
+					<when test="searchType == 'nickName'">
+						AND nickName LIKE '%' || #{keyword} || '%'
+					</when>
+					<otherwise>
+						AND (title LIKE '%' || #{keyword} || '%'
+						OR content LIKE '%' || #{keyword} || '%')
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
 
 
 </mapper>
