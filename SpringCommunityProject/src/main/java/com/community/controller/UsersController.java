@@ -1,5 +1,7 @@
 package com.community.controller;
 
+import java.util.List;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.community.domain.Board;
 import com.community.domain.Users;
 import com.community.service.UsersService;
 
@@ -127,11 +130,7 @@ public class UsersController {
 		return "community/success";
 	}
 	
-	@GetMapping("/main")
-	public String main(HttpSession session) {
-		session.getAttribute("loginUser");
-		return "community/main";
-	}
+	
 	
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session) {

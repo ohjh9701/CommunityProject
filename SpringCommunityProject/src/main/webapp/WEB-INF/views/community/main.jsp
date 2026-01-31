@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -86,24 +87,31 @@
             <tr>
                 <th style="width: 10%">No</th>
                 <th style="width: 50%">Title</th>
-                <th style="width: 20%">Writer</th>
-                <th style="width: 20%">Date</th>
+                <th style="width: 15%">Writer</th>
+                <th style="width: 15%">Date</th>
+                <th style="width: 10%">Points</th> <%-- 추천수 추가 --%>
             </tr>
         </thead>
         <tbody>
             <c:choose>
                 <%-- 1. 게시글 리스트가 비어있지 않은 경우 --%>
                 <c:when test="${not empty boardList}">
-                    <c:forEach var="board" items="${boardList}">
+                    <c:forEach var="board" items="${boardList}" end="9">
                         <tr>
                             <td>${board.no}</td>
-                            <td>
-                                <a href="/community/board/read?no=${board.no}" class="text-decoration-none text-dark">
+                            <td class="text-start"> <%-- 제목은 왼쪽 정렬 --%>
+                                <a href="/community/board/read?no=${board.no}" class="text-decoration-none text-dark fw-bold">
                                     <c:out value="${board.title}" />
                                 </a>
                             </td>
-                            <td>${board.writer}</td>
-                            <td>${board.regDate}</td>
+                            <%-- [중요] writer 대신 도메인 필드명인 usersId 사용 --%>
+                            <td>${board.user.nickName}</td>
+                            <%-- 날짜 포맷팅 적용 --%>
+                            <td>
+                                <fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd"/>
+                            </td>
+                            <%-- 추천수 표시 --%>
+                            <td><span class="text-danger">${board.goodPoint}</span></td>
                         </tr>
                     </c:forEach>
                 </c:when>
@@ -111,8 +119,7 @@
                 <%-- 2. 게시글 리스트가 비어있는 경우 --%>
                 <c:otherwise>
                     <tr>
-                        <td colspan="4" class="text-center py-5 text-muted">
-                            <i class="bi bi-info-circle d-block mb-2" style="font-size: 2rem;"></i>
+                        <td colspan="5" class="text-center py-5 text-muted">
                             게시판 정보가 없습니다. 첫 번째 글을 남겨보세요!
                         </td>
                     </tr>
@@ -121,8 +128,7 @@
         </tbody>
     </table>
     
-    <div class="text-end">
-        <%-- 로그인한 유저만 글쓰기 버튼이 보이도록 설정할 수도 있습니다 --%>
+    <div class="text-end mt-3">
         <c:if test="${not empty loginUser}">
             <a href="/community/board/insertForm" class="btn btn-danger btn-sm me-2">글쓰기</a>
         </c:if>
