@@ -22,6 +22,7 @@ public interface BoardMapper {
 
 	// 10개씩 끊어서 가져오기
 	public List<Board> getListWithPaging(int offset) throws Exception;
+	public List<Board> getAdminListWithPaging(int offset) throws Exception;
 
 	// 전체 게시글 개수 가져오기 (페이징 계산기용)
 	public int getTotalCount() throws Exception;

@@ -37,6 +37,7 @@ public class BoardController {
 		session.getAttribute("loginUser");
 		// 1. 실제 DB에서 10개만 가져오기
 		List<Board> list;
+		List<Board> adminList;
 		int total;
 		try {
 			list = boardService.getListWithPaging(page);
@@ -44,6 +45,8 @@ public class BoardController {
 			Paging paging = new Paging(total, page);
 			model.addAttribute("boardList", list);
 			model.addAttribute("paging", paging);
+			adminList = boardService.getAdminListWithPaging(1);
+			model.addAttribute("adminBoardList", adminList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

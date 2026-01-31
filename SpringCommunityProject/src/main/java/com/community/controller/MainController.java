@@ -29,9 +29,12 @@ public class MainController {
 	public String mainPage(Model model) {
 	    // 최신글 5개 정도 가져오는 로직 필요
 	    List<Board> mainList;
+	    List<Board> adminList;
 		try {
 			mainList = boardService.getListWithPaging(1);
 			model.addAttribute("boardList", mainList);
+			adminList = boardService.getAdminListWithPaging(1);
+			model.addAttribute("adminBoardList", adminList);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

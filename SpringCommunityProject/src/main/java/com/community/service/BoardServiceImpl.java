@@ -51,6 +51,12 @@ public class BoardServiceImpl implements BoardService {
 		int offset = (page - 1) * 10;
 		return mapper.getListWithPaging(offset);
 	}
+	
+	@Override
+	public List<Board> getAdminListWithPaging(int page) throws Exception {
+		int offset = (page - 1) * 10;
+		return mapper.getAdminListWithPaging(offset);
+	}
 
 	@Override
 	public int getTotalCount() throws Exception {
