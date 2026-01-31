@@ -100,7 +100,7 @@
                         <tr>
                             <td>${board.no}</td>
                             <td class="text-start"> <%-- 제목은 왼쪽 정렬 --%>
-                                <a href="/community/board/read?no=${board.no}" class="text-decoration-none text-dark fw-bold">
+                                <a href="/community/board/detail?no=${board.no}" class="text-decoration-none text-dark fw-bold">
                                     <c:out value="${board.title}" />
                                 </a>
                             </td>

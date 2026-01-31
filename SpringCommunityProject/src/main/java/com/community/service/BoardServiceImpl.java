@@ -21,8 +21,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public Board read(Board board) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.read(board);
 	}
 
 	@Override

@@ -114,7 +114,7 @@
                         <tr>
                             <td>${board.no}</td>
                             <td class="title-cell">
-                                <a href="/community/board/read?no=${board.no}" class="text-decoration-none text-dark fw-bold">${board.title}</a>
+                                <a href="/community/board/detail?no=${board.no}" class="text-decoration-none text-dark fw-bold">${board.title}</a>
                             </td>
                             <td>${board.user.nickName}</td>
                             <td><fmt:formatDate value="${board.regDate}" pattern="MM.dd HH:mm"/></td>

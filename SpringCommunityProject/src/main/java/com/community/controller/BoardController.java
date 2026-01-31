@@ -66,6 +66,20 @@ public class BoardController {
 		return "community/success";
 	}
 	
+	@GetMapping("/board/detail")
+	public String boardDetail(Board b, HttpSession session, Model model) {
+		try {
+			Board board = boardService.read(b);
+			log.info(board.toString());
+			model.addAttribute("board",board);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "community/board/detail";
+	}
+	
+	
 	
 
 }
