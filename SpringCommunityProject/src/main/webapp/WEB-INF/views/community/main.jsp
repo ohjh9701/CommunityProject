@@ -317,7 +317,7 @@ footer {
 				<a href="https://www.arsenal.com/men/players" target="_blank"
 					class="quick-card-link">
 					<div class="quick-card">
-						<div class="card-icon">🏃‍♂️</div>
+						<div class="card-icon">⚽</div>
 						<h3>SQUAD</h3>
 						<p>1군 선수단 프로필 및 스탯 확인</p>
 					</div>
