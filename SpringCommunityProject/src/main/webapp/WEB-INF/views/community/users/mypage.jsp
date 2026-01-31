@@ -80,7 +80,15 @@
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item"><a class="nav-link" href="/community/board/list">게시판</a></li>
                 <li class="nav-item"><a class="nav-link active" href="/community/mypage">마이페이지</a></li>
-                <li class="nav-item"><a class="btn btn-danger btn-sm ms-3" href="/community/logout">로그아웃</a></li>
+                <c:choose>
+                    <c:when test="${empty loginUser}">
+                        <li class="nav-item"><a class="btn btn-outline-danger ms-3" href="/community/loginForm">로그인</a></li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item px-3 text-muted"><b>${loginUser.nickName}</b>님 환영합니다</li>
+                        <li class="nav-item"><a class="btn btn-danger btn-sm" href="/community/logout">로그아웃</a></li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </div>
     </div>
@@ -112,7 +120,7 @@
                 </div>
 
                 <div class="btn-group-custom">
-                    <a href="/community/board/myList" class="btn btn-edit rounded">게시글</a>
+                    <a href="/community/board/myList?no=${loginUser.no}" class="btn btn-edit rounded">게시글</a>
                     <a href="/community/updateUserForm" class="btn btn-edit rounded">정보 수정</a>
                     <a href="/community/deleteUser" class="btn btn-logout rounded">회원 탈퇴</a>
                 </div>
