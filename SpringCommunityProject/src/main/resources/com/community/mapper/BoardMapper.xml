@@ -12,8 +12,8 @@
 		<result property="badPoint" column="badPoint" />
 		<result property="regDate" column="reg_date" />
 		<association property="user" javaType="users">
-		<result property="id" column="id" />
-		<result property="nickName" column="nickName" />
+			<result property="id" column="id" />
+			<result property="nickName" column="nickName" />
 		</association>
 	</resultMap>
 
@@ -27,7 +27,7 @@
 		WHERE
 		b.no = #{no}
 	</select>
-	
+
 	<select id="userRead" resultMap="boardMap">
 		SELECT u.id, u.nickName, b.no,
 		b.title, b.content, b.goodPoint, b.badPoint, b.reg_date
@@ -44,42 +44,46 @@
 		Board b ON u.id = b.users_id
 	</select>
 
-	<select id="getListWithPaging" resultMap="boardMap"> SELECT u.nickName, u.id, b.no, b.title,
-           b.content, b.goodPoint, b.badPoint, b.reg_date
-    FROM Users u INNER JOIN Board b ON u.id = b.users_id
-    ORDER BY b.no DESC
-    OFFSET #{offset} ROWS FETCH NEXT 10 ROWS ONLY
-</select>
+	<select id="getListWithPaging" resultMap="boardMap"> SELECT u.nickName,
+		u.id, b.no, b.title,
+		b.content, b.goodPoint, b.badPoint, b.reg_date
+		FROM Users u INNER JOIN Board b ON u.id = b.users_id
+		ORDER BY b.no DESC
+		OFFSET #{offset} ROWS FETCH NEXT 10 ROWS ONLY
+	</select>
 
 	<select id="getTotalCount" resultType="int">
 		SELECT COUNT(*) FROM Board
 	</select>
-	
+
 	<select id="getMyListWithPaging" resultMap="boardMap">
-	SELECT u.nickName, u.id, b.no, b.title,
-           b.content, b.goodPoint, b.badPoint, b.reg_date
-    FROM Users u INNER JOIN Board b ON u.id = b.users_id
-    WHERE b.users_id = #{board.user.id, jdbcType=VARCHAR}
-    ORDER BY b.no DESC
-    OFFSET #{offset} ROWS FETCH NEXT 10 ROWS ONLY
-</select>
+		SELECT u.nickName, u.id, b.no, b.title,
+		b.content, b.goodPoint, b.badPoint, b.reg_date
+		FROM Users u INNER JOIN Board b ON u.id = b.users_id
+		WHERE b.users_id = #{board.user.id, jdbcType=VARCHAR}
+		ORDER BY b.no DESC
+		OFFSET #{offset} ROWS FETCH NEXT 10 ROWS ONLY
+	</select>
 
 	<select id="getMyTotalCount" resultType="int">
-		SELECT COUNT(*) FROM Board WHERE users_id = #{board.user.id, jdbcType=VARCHAR}
+		SELECT COUNT(*) FROM
+		Board WHERE users_id = #{board.user.id, jdbcType=VARCHAR}
 	</select>
-	
+
 	<select id="create">
-		INSERT INTO BOARD(no, title, content, users_id) VALUES(board_SEQ.nextval, #{title}, #{content}, #{usersId})
+		INSERT INTO BOARD(no, title, content, users_id)
+		VALUES(board_SEQ.nextval, #{title}, #{content}, #{usersId})
 	</select>
-	
+
 	<select id="update">
-		UPDATE BOARD SET title = #{title}, content = #{content} WHERE no = #{no}
+		UPDATE BOARD SET title = #{title}, content =
+		#{content} WHERE no = #{no}
 	</select>
-	
+
 	<select id="delete">
 		DELETE FROM BOARD WHERE no = #{no}
 	</select>
-	
-	
+
+
 
 </mapper>

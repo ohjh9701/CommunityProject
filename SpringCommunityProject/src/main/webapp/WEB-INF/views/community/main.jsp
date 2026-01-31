@@ -23,7 +23,7 @@
             height: 350px;
             background-color: #333;
             background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                              url('/images/banner.jpg');
+                              url('/images/banner2.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -44,6 +44,86 @@
         footer { background-color: #111; color: #aaa; padding: 40px 0; margin-top: 50px; font-size: 0.9rem; }
         .footer-info b { color: #eee; }
         .footer-logo { font-family: 'Oswald', sans-serif; color: #EF0107; font-size: 1.2rem; margin-bottom: 10px; }
+    /* 위젯 내부의 폰트나 여백이 우리 사이트와 잘 어울리도록 감싸는 컨테이너 */
+    .match-widget-wrapper {
+        border: 1px solid #eee;
+        min-height: 400px; /* 로딩 전 영역 확보 */
+    }
+    .match-link-banner {
+        width: 100%;
+        height: 250px;
+        background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                          url('/images/banner.jpg'); /* 아까 추가한 배너 이미지 재활용 */
+        background-size: cover;
+        background-position: center;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-align: center;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .match-link-banner:hover {
+        transform: scale(1.01); /* 마우스 올리면 살짝 커지는 효과 */
+    }
+
+    .btn-ars-outline {
+        border: 2px solid white;
+        color: white;
+        font-weight: bold;
+        padding: 10px 30px;
+        border-radius: 50px;
+        transition: 0.3s;
+    }
+
+    .btn-ars-outline:hover {
+        background-color: #EF0107;
+        color: var(--ars-red);
+    }
+    .quick-card-link { text-decoration: none !important; color: inherit; }
+    
+    .quick-card {
+        background: white;
+        padding: 40px 20px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        border: 1px solid #eee;
+        height: 100%;
+    }
+
+    .quick-card .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+
+    .quick-card h3 {
+        font-family: 'Oswald', sans-serif;
+        font-weight: bold;
+        color: #1a1a1a;
+        margin-bottom: 10px;
+    }
+
+    .quick-card p {
+        color: #777;
+        font-size: 0.95rem;
+        margin-bottom: 0;
+    }
+
+    /* 마우스 호버 효과 */
+    .quick-card:hover {
+        transform: translateY(-10px);
+        border-color: #EF0107;
+        background-color: #fffafb;
+    }
+
+    .quick-card:hover h3 {
+        color: #EF0107;
+    }
     </style>
 </head>
 <body>
@@ -135,7 +215,54 @@
         <a href="/community/board/list" class="btn btn-outline-dark btn-sm">전체 보기</a>
     </div>
 </section>
+	
+<section class="container mb-5">
+    <div class="match-link-banner">
+        <div class="banner-content">
+            <h2 class="fw-bold mb-2">NEXT MATCH & FIXTURES</h2>
+            <p class="mb-4 opacity-75">아스날의 실시간 경기 일정과 결과를 공식 홈페이지에서 확인하세요.</p>
+            <a href="https://www.arsenal.com/fixtures" target="_blank" class="btn btn-ars-outline">
+                GO TO OFFICIAL FIXTURES
+            </a>
+        </div>
+    </div>
+</section>
 
+<section class="container my-5">
+    <div class="row g-4">
+        <div class="col-md-4">
+            <a href="https://www.arsenal.com/men/players" target="_blank" class="quick-card-link">
+                <div class="quick-card">
+                    <div class="card-icon">🏃‍♂️</div>
+                    <h3>SQUAD</h3>
+                    <p>1군 선수단 프로필 및 스탯 확인</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="https://www.arsenal.com/history" target="_blank" class="quick-card-link">
+                <div class="quick-card history-card">
+                    <div class="card-icon">🏆</div>
+                    <h3>HISTORY</h3>
+                    <p>1886년부터 이어진 불패신화의 역사</p>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="https://www.arsenal.com/fans" target="_blank" class="quick-card-link">
+                <div class="quick-card">
+                    <div class="card-icon">📢</div>
+                    <h3>SUPPORTERS</h3>
+                    <p>전 세계 구너들과 함께하는 커뮤니티</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+	
 <footer>
     <div class="container">
         <div class="row">

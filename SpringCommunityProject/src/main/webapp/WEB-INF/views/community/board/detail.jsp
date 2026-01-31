@@ -77,18 +77,36 @@
             <div class="detail-body">
                 <div class="content-text">${board.content}</div>
             </div>
+			 <div class="point-section">
+    <c:choose>
+        <%-- 1. 로그인 정보가 있을 때: 클릭 가능한 버튼 출력 --%>
+        <c:when test="${not empty loginUser}">
+            <p class="text-muted small mt-2">이 글은 어떠셨나요? 의견을 남겨주세요</p>
+            <div class="d-flex justify-content-center gap-3">
+                <button type="button" class="btn btn-outline-danger btn-point" onclick="handlePoint('good')">
+                    👍 좋아요<br><span id="goodCount">${board.goodPoint}</span>
+                </button>
+                <button type="button" class="btn btn-outline-secondary btn-point" onclick="handlePoint('bad')">
+                    👎 싫어요<br><span id="badCount">${board.badPoint}</span>
+                </button>
+            </div>
+        </c:when>
 
-            <div class="point-section">
-                <div class="d-flex justify-content-center gap-3">
-                    <button class="btn btn-outline-danger btn-point">
-                        👍 좋아요<br>${board.goodPoint}
-                    </button>
-                    <button class="btn btn-outline-secondary btn-point">
-                        👎 싫어요<br>${board.badPoint}
-                    </button>
+        <%-- 2. 로그인 정보가 없을 때: 단순 텍스트/수치만 출력 --%>
+        <c:otherwise>
+            <div class="d-flex justify-content-center gap-4">
+                <div class="fw-bold" style="color: #EF0107; font-size: 1.2rem;">
+                    👍 추천 ${board.goodPoint}
+                </div>
+                <div class="fw-bold" style="color: #063672; font-size: 1.2rem;">
+                    👎 비추천 ${board.badPoint}
                 </div>
             </div>
-
+            <p class="text-muted small mt-2">로그인 후 추천이 가능합니다.</p>
+        </c:otherwise>
+    </c:choose>
+</div>
+            
             <div class="detail-footer">
                 <a href="/community/board/list" class="btn btn-dark px-4">목록으로</a>
                 
