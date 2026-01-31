@@ -23,7 +23,7 @@
             height: 350px;
             background-color: #333;
             background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                              url('https://images.unsplash.com/photo-1599423423912-299f27a683a3?q=80&w=2070&auto=format&fit=crop'); /* 임시 에미레이츠 스타디움 이미지 */
+                              url('/images/banner.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -32,7 +32,7 @@
             color: white;
             text-align: center;
         }
-        .banner-text h1 { font-family: 'Oswald', sans-serif; font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.7); }
+        .banner-text h1 { font-family: 'Oswald', sans-serif; font-size: 3.5rem; text-shadow: 2px 2px 10px #EF0107; }
 
         /* 섹션 2: 게시판 리스트 영역 */
         .board-section { padding: 60px 0; min-height: 400px; }
