@@ -20,4 +20,6 @@ public class Board {
 	private String searchType;
 	private String keyword;
 	
+	private int replyCount;
+	
 }
