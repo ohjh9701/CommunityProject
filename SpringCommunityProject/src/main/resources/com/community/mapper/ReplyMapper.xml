@@ -30,4 +30,8 @@
 		Order by r.reg_date asc
 	</select>
 	
+	<select id="delete">
+		DELETE FROM Reply WHERE no = #{no}
+	</select>
+	
 </mapper>

@@ -182,14 +182,12 @@ footer {
 							<div class="d-flex justify-content-center gap-3">
 								<button type="button" class="btn btn-outline-danger btn-point"
 									onclick="handlePoint('good')">
-									👍 좋아요<br>
-									<span id="goodCount">${board.goodPoint}</span>
+									👍 좋아요<br> <span id="goodCount">${board.goodPoint}</span>
 								</button>
 								<button type="button"
 									class="btn btn-outline-secondary btn-point"
 									onclick="handlePoint('bad')">
-									👎 싫어요<br>
-									<span id="badCount">${board.badPoint}</span>
+									👎 싫어요<br> <span id="badCount">${board.badPoint}</span>
 								</button>
 							</div>
 						</c:when>
@@ -229,9 +227,7 @@ footer {
 					<div class="reply-list">
 						<c:forEach var="reply" items="${replyList}">
 							<div class="d-flex mb-3 pb-3 border-bottom">
-								<div class="flex-shrink-0">
-									⚽
-								</div>
+								<div class="flex-shrink-0">⚽</div>
 								<div class="ms-3 w-100">
 									<div class="d-flex justify-content-between">
 										<h6 class="fw-bold mb-1">${reply.user.nickName}
@@ -239,13 +235,15 @@ footer {
 													value="${reply.regDate}" pattern="yyyy-MM-dd HH:mm" /></small>
 										</h6>
 
-										<c:if test="${loginUser.id eq reply.usersId}">
+										<c:if
+											test="${not empty loginUser and loginUser.nickName eq reply.user.nickName}">
 											<form action="/community/replies/delete" method="post"
 												style="display: inline;">
 												<input type="hidden" name="no" value="${reply.no}">
 												<input type="hidden" name="boardNo" value="${board.no}">
-												<button type="submit" class="btn-close"
-													style="font-size: 0.7rem;"></button>
+												<button type="submit" class="btn-close" aria-label="삭제"
+													style="font-size: 0.7rem;"
+													onclick="return confirm('정말 삭제하시겠습니까?')"></button>
 											</form>
 										</c:if>
 									</div>
@@ -257,7 +255,6 @@ footer {
 				</div>
 				<div class="detail-footer">
 					<a href="/community/board/list" class="btn btn-dark px-4">목록으로</a>
-
 					<div class="d-flex gap-2">
 						<%-- 본인이 쓴 글일 때만 수정/삭제 버튼 노출 (세션의 loginUser.id와 비교) --%>
 						<c:if test="${loginUser.id eq board.user.id}">
@@ -268,6 +265,7 @@ footer {
 								onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
 						</c:if>
 					</div>
+
 				</div>
 			</div>
 		</div>
