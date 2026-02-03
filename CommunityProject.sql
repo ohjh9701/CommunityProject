@@ -14,6 +14,7 @@ ALTER TABLE USERS ADD CONSTRAINT USERS_NO_PK PRIMARY KEY(NO);
 ALTER TABLE USERS ADD CONSTRAINT USERS_ID_UK UNIQUE(ID);
 ALTER TABLE USERS ADD CONSTRAINT USERS_NICKNAME_UK UNIQUE(NICKNAME);
 
+
 DROP SEQUENCE USERS_SEQ;
 CREATE SEQUENCE USERS_SEQ
 START WITH 1
@@ -75,11 +76,35 @@ DROP TABLE ProfileIMG;
 CREATE TABLE ProfileIMG(
     ID NUMBER(5),
     URL VARCHAR2(300),
-    PRIMARY KEY (ID)
+    users_id VARCHAR2(20),
+    PRIMARY KEY (ID),
+    constraint profileIMG_usersId_fk FOREIGN KEY(users_id) references users(id)
 );
 DROP SEQUENCE ProfileIMG_SEQ;
 CREATE SEQUENCE ProfileIMG_SEQ
 START WITH 1
 INCREMENT BY 1;
 
-desc ProfileIMG;
+select * from ProfileIMG;
+
+delete from ProfileIMG where id = 7;
+
+commit;
+
+
+create or replace trigger profileImg_trg
+    after INSERT
+    ON users FOR EACH ROW
+BEGIN
+    insert into ProfileIMG values(ProfileIMG_SEQ.nextval, 'defaultIMG.jpg', :new.id);
+END;
+/
+
+create or replace trigger profileImgUpdate_trg
+    before INSERT
+    ON profileImg FOR EACH ROW
+BEGIN
+    delete from profileImg where users_id = :new.users_id;
+END;
+/
+

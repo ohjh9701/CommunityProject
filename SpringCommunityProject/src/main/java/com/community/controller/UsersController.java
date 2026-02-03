@@ -1,23 +1,20 @@
 package com.community.controller;
 
-import java.util.List;
-
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.community.domain.Board;
+import com.community.domain.ProfileImg;
 import com.community.domain.Users;
+import com.community.service.ProfileImgService;
 import com.community.service.UsersService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Slf4j
@@ -28,6 +25,9 @@ public class UsersController {
 	
 	@Autowired
 	private UsersService usersService;
+	
+	@Autowired
+	private ProfileImgService profileImgService;
 	
 	@GetMapping("/loginForm")
 	public String UserLoginForm() {
@@ -134,11 +134,15 @@ public class UsersController {
 	
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session) {
-		
-		if(session.getAttribute("loginUser") == null) {
-			return "community/users/loginForm";
-		}
-		return "community/users/mypage";
+	    // 1. 세션에서 로그인 정보 가져오기
+	    Users loginUser = (Users) session.getAttribute("loginUser");
+	    
+	    if (loginUser == null) {
+	        return "community/users/loginForm";
+	    }
+	    
+	    session.setAttribute("loginUser", loginUser);
+	    return "community/users/mypage";
 	}
 	
 	@GetMapping("/updateUserForm")

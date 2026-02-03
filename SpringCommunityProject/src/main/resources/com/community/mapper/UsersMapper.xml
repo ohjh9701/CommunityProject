@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.community.mapper.UsersMapper">
 
+<!-- 외부 조인을 사용하여 얻은 검색 결과에 대한 매핑을 정의한다. -->
+	<resultMap type="Users" id="usersMap">
+		<id property="no" column="no" />
+		<result property="id" column="ID" />
+		<result property="password" column="PASSWORD" />
+		<result property="nickName" column="NICKNAME" />
+		<result property="email" column="EMAIL" />
+		<result property="regDate" column="REG_DATE" />
+		<association property="profileImg" javaType="profileImg">
+			<result property="id" column="id" />
+			<result property="url" column="url" />
+		</association>
+	</resultMap>
+
+	<!-- 부모 객체와 관계 객체를 작성하는 데 필요한 모든 레코드를 검색하도록 외부 조인을 사용한 SQL을 정의한다. -->
+
+	<select id="loginRead" resultMap="usersMap">
+		SELECT u.no, u.id, u.nickName, u.password, u.email, u.reg_date, p.url
+		FROM Users u
+		INNER JOIN ProfileImg p ON u.id = p.users_id
+		WHERE u.id = #{id} AND u.password = #{password}
+	</select>
+
 <insert id="create">
 		INSERT INTO users VALUES( users_seq.NEXTVAL, #{id}, #{password}, #{nickName}, #{email}, SYSDATE)
 	</insert>
@@ -10,9 +33,6 @@
 		SELECT no, id, password, nickName, email, REG_DATE FROM users WHERE no = #{no}
 	</select>
 	
-	<select id="loginRead" resultType="Users">
-		SELECT no, id, password, nickName, email, REG_DATE FROM users WHERE id = #{id} AND password = #{password}
-	</select>
 	
 	<select id="findId" resultType="Users">
 		SELECT no, id, password, nickName, email, REG_DATE FROM users WHERE email = #{email}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.mapper.ProfileImgMapper">
+
+	<resultMap type="ProfileImg" id="profileImgMap">
+		<id property="id" column="id" />
+		<result property="url" column="url" />
+		<association property="usersId" javaType="users">
+			<result property="id" column="id" />
+		</association>
+	</resultMap>
+
+	<insert id="create">
+		INSERT INTO ProfileImg
+		VALUES(ProfileIMG_SEQ.NEXTVAL, #{url}, #{usersId})
+	</insert>
+
+	<select id="read" resultType="ProfileImg">
+		SELECT id, url, users_id FROM ProfileImg WHERE users_id = #{id}
+	</select>
+
+	<update id="update">
+		UPDATE ProfileImg SET url = #{url}
+		WHERE users_id = #{id}
+	</update>
+
+	<delete id="delete">
+		DELETE FROM ProfileImg WHERE id = #{id}
+	</delete>
+
+	<select id="getPicture" resultType="string" parameterType="com.community.domain.ProfileImg">
+    SELECT url 
+    FROM ProfileImg 
+    WHERE users_id = #{usersId}  </select>
+
+</mapper>
