@@ -17,4 +17,6 @@ public class Users {
 	@DateTimeFormat(pattern = "EEE MMM dd HH:mm:ss z yyyy")
 	private Date regDate;
 	
+	private ProfileImg profileImg;
+	
 }

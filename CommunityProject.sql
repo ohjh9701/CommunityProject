@@ -21,7 +21,7 @@ INCREMENT BY 1
 NOCACHE;
 
 select * from users;
-
+delete from users;
 insert into users values(0, 'admin', 'admin', '관리자', 'ohjh4875@gmail.com', sysdate);
 update users set email = 'admin@arsenalFC.com' where no = 0;
 commit;
@@ -48,7 +48,6 @@ INCREMENT BY 1
 NOCACHE;
 
 select * from board;
-delete * from board;
 
 -- *********************************
 
@@ -68,3 +67,19 @@ CREATE TABLE Reply (
 CREATE SEQUENCE seq_reply_no NOCACHE;
 
 select * from reply;
+
+
+-- *************************************
+-- 프로필 사진 추가 기능
+DROP TABLE ProfileIMG;
+CREATE TABLE ProfileIMG(
+    ID NUMBER(5),
+    URL VARCHAR2(300),
+    PRIMARY KEY (ID)
+);
+DROP SEQUENCE ProfileIMG_SEQ;
+CREATE SEQUENCE ProfileIMG_SEQ
+START WITH 1
+INCREMENT BY 1;
+
+desc ProfileIMG;
