@@ -59,19 +59,19 @@ body {
 }
 
 .profile-img-wrapper {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    margin: 0 auto;
-    overflow: hidden; /* 영역 밖으로 나가는 이미지 커트 */
-    border: 4px solid white;
-    background-color: white;
+	width: 130px;
+	height: 130px;
+	border-radius: 50%;
+	margin: 0 auto;
+	overflow: hidden; /* 영역 밖으로 나가는 이미지 커트 */
+	border: 4px solid white;
+	background-color: white;
 }
 
 .profile-img-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 이미지가 찌그러지지 않고 꽉 차게 */
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* 이미지가 찌그러지지 않고 꽉 차게 */
 }
 
 .profile-body {
@@ -181,34 +181,40 @@ footer {
 		<div class="container">
 			<div class="profile-card">
 				<div class="profile-header">
-    <div class="position-relative d-inline-block">
-        <div class="profile-img-wrapper shadow">
-            <c:choose>
-                <%-- DB에 프로필 이미지 경로가 저장되어 있는 경우 --%>
-                <c:when test="${not empty loginUser.profileImg}">
-                    <img src="/upload/${loginUser.profileImg}" alt="Profile" id="profileDisplay">
-                </c:when>
-                <%-- 이미지가 없는 경우 기본 이미지 출력 --%>
-                <c:otherwise>
-                    <img src="/images/defaultIMG.jpg" alt="Default Profile" id="profileDisplay">
-                </c:otherwise>
-            </c:choose>
-        </div>
-        
-        <label for="imgInput" class="btn btn-light btn-sm position-absolute bottom-0 end-0 rounded-circle shadow-sm p-2" 
-               style="transform: translate(-10%, -10%); cursor: pointer;" title="이미지 변경">
-            <span style="font-size: 1.2rem;">📷</span>
-        </label>
-        
-        <form id="profileImgForm" action="/community/updateProfileImg" method="post" enctype="multipart/form-data">
-            <input type="file" id="imgInput" name="profileFile" style="display: none;" onchange="uploadImage()">
-            <input type="hidden" name="id" value="${loginUser.id}">
-        </form>
-    </div>
-    
-    <h2 class="fw-bold mt-3">${loginUser.nickName}</h2>
-    <p class="mb-0">Official Gunner</p>
-</div>
+					<div class="position-relative d-inline-block">
+						<div class="profile-img-wrapper">
+							<c:choose>
+								<%-- 컨텍스트 패스를 포함하여 정확한 주소로 호출 --%>
+								<c:when test="${not empty loginUser.profileImg.url}">
+									<img
+										src="${pageContext.request.contextPath}/community/display?url=${loginUser.profileImg.url}"
+										alt="Profile">
+								</c:when>
+								<c:otherwise>
+									<img
+										src="${pageContext.request.contextPath}/images/defaultIMG.jpg"
+										alt="Default Profile">
+								</c:otherwise>
+							</c:choose>
+						</div>
+
+						<label for="imgInput"
+							class="btn btn-light btn-sm position-absolute bottom-0 end-0 rounded-circle shadow-sm p-2"
+							style="transform: translate(-10%, -10%); cursor: pointer;"
+							title="이미지 변경"> <span style="font-size: 1.2rem;">📷</span>
+						</label>
+
+						<form id="profileImgForm" action="/community/updateProfileImg"
+							method="post" enctype="multipart/form-data">
+							<input type="file" id="imgInput" name="picture"
+								style="display: none;" onchange="uploadImage()"> <input
+								type="hidden" name="id" value="${loginUser.id}">
+						</form>
+					</div>
+
+					<h2 class="fw-bold mt-3">${loginUser.nickName}</h2>
+					<p class="mb-0">Official Gunner</p>
+				</div>
 
 				<div class="profile-body">
 					<div class="info-row">
@@ -256,5 +262,18 @@ footer {
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		function uploadImage() {
+			const fileInput = document.getElementById('imgInput');
+			const form = document.getElementById('profileImgForm');
+
+			if (fileInput.files && fileInput.files[0]) {
+				// 이미지 선택 시 즉시 폼 제출 (또는 AJAX 사용 가능)
+				if (confirm("프로필 이미지를 변경하시겠습니까?")) {
+					form.submit();
+				}
+			}
+		}
+	</script>
 </body>
 </html>
